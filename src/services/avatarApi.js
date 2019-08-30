@@ -4,5 +4,8 @@ export const getCharacters = () => {
       if(!res.ok) throw 'Could not get characters';
 
       return res.json();
-    });
+    })
+    .then(json => json.map(c => ({
+      ...c, photoUrl: c.photoUrl || 'http://placegoat.com/200/200'
+    })));
 };
