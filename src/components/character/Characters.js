@@ -6,7 +6,7 @@ function Characters({ characters }) {
   const characterListItems = characters.map(character => {
     return (
       <li key={character._id}>
-        <Character name={character.name} photoUrl={character.photoUrl} />
+        <Character name={character.name} photoUrl={character.photoUrl} id={character._id} />
       </li>
     );
   });
