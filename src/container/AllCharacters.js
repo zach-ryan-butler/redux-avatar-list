@@ -2,13 +2,14 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Characters from '../components/character/Characters';
 import { connect } from 'react-redux';
-import { getCharacters } from '../selectors/characterSelectors';
+import { getCharacters, getCharactersLoading } from '../selectors/characterSelectors';
 import { fetchCharacters } from '../actions/characterActions';
 
 class AllCharacters extends Component {
   static propTypes = {
     fetch: PropTypes.func.isRequired,
-    characters: PropTypes.array.isRequired
+    characters: PropTypes.array.isRequired,
+    loading: PropTypes.bool.isRequired
   }
 
   componentDidMount() {
@@ -16,7 +17,8 @@ class AllCharacters extends Component {
   }
 
   render() {
-    const { characters } = this.props;
+    const { characters, loading } = this.props;
+    if(loading) return <h1>LOADING!</h1>;
     return (
       <Characters characters={characters}/>
     );
@@ -24,7 +26,8 @@ class AllCharacters extends Component {
 }
 
 const mapStateToProps = state => ({
-  characters: getCharacters(state)
+  characters: getCharacters(state),
+  loading: getCharactersLoading(state)
 });
 
 const mapDispatchToProps = dispatch => ({
